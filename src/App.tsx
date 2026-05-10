@@ -879,7 +879,7 @@ function PlayerCard() {
           {/* Masking gradient for smooth fade at the bottom */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent z-10" />
           <img 
-            src="/Myphoto.jpg" 
+            src="Myphoto.jpg" 
             alt="Alex P."
             className="w-full h-full object-cover object-top filter contrast-125 saturate-50 drop-shadow-[0_0_20px_rgba(239,68,68,0.2)]"
             style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)' }}
