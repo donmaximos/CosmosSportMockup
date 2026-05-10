@@ -1,0 +1,99 @@
+function MissionsView() {
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="relative z-10 w-full max-w-6xl mx-auto"
+    >
+      <header className="flex justify-between items-end mb-10">
+        <div>
+          <h1 className="text-3xl md:text-5xl font-display font-black text-white tracking-tight uppercase">
+            Διαθέσιμα <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600 drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]">Missions</span>
+          </h1>
+          <p className="text-slate-400 mt-2 font-mono text-sm tracking-widest uppercase">
+            Εκπαιδεύσεις & Ανάπτυξη Δεξιοτήτων
+          </p>
+        </div>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <MissionCard 
+          title="Customer Service Excellence"
+          category="Agility"
+          xp="+50 XP"
+          progress={100}
+          status="completed"
+          image="https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=600&q=80"
+        />
+        <MissionCard 
+          title="Σεμινάριο Νέων Παραλαβών"
+          category="Physical"
+          xp="+100 XP"
+          progress={45}
+          status="in-progress"
+          image="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=600&q=80"
+        />
+        <MissionCard 
+          title="Leadership & Store Management"
+          category="Pace"
+          xp="+200 XP"
+          progress={0}
+          status="available"
+          image="https://images.unsplash.com/photo-1542744095-291d1f67b221?auto=format&fit=crop&w=600&q=80"
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+function MissionCard({ title, category, xp, progress, status, image }: any) {
+  const isCompleted = status === 'completed';
+  const isInProgress = status === 'in-progress';
+  const isAvailable = status === 'available';
+
+  return (
+    <div className="bg-white/[0.02] rounded-3xl border border-white/[0.05] overflow-hidden group hover:border-red-500/30 transition-all flex flex-col h-full relative">
+      <div className="h-40 relative overflow-hidden">
+        <img src={image} className="w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700" alt={title}/>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] to-transparent" />
+        <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg border border-white/10 flex items-center gap-1 z-10">
+          <Zap className="w-4 h-4 text-red-500" />
+          <span className="text-white font-bold text-sm tracking-widest">{xp}</span>
+        </div>
+      </div>
+      <div className="p-6 flex flex-col flex-1">
+        <div className="text-red-500 font-mono text-xs uppercase tracking-widest mb-2">{category}</div>
+        <h3 className="text-xl font-bold text-white mb-4 leading-tight">{title}</h3>
+        
+        <div className="mt-auto">
+          {isAvailable ? (
+            <button className="w-full py-3 rounded-xl bg-red-600/20 hover:bg-red-600/40 border border-red-500/50 text-white transition-colors font-bold tracking-wide shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+              Αίτηση Συμμετοχής
+            </button>
+          ) : (
+            <>
+              <div className="flex justify-between text-xs mb-2 font-mono">
+                <span className={isCompleted ? "text-red-400" : "text-slate-400"}>
+                  {isCompleted ? "Ολοκληρώθηκε" : "Σε εξέλιξη"}
+                </span>
+                <span className="text-red-500 font-bold">{progress}%</span>
+              </div>
+              <div className="h-2 w-full bg-black/50 rounded-full overflow-hidden border border-white/5 relative">
+                <div 
+                  className={cn(
+                    "h-full relative transition-all duration-1000",
+                    isCompleted ? "bg-gradient-to-r from-red-600 to-red-400" : "bg-gradient-to-r from-red-800 to-red-500"
+                  )}
+                  style={{ width: `${progress}%` }}
+                >
+                  <div className="absolute inset-0 bg-white/20 skew-x-[-20deg]" />
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
